@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --gold-primary: #F59E0B;
+    --gold-light: #FDE68A;
+    --gold-dark: #B45309;
+    --midnight-deep: #030712;
+    --midnight-card: rgba(10, 17, 40, 0.75);
+  }
+
+  body {
+    background-color: #030712;
+    color: #F8FAFC;
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Typography Helpers */
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-outfit {
+  font-family: 'Outfit', sans-serif;
+}
+
+.font-urdu {
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Arabic Typesetting', serif;
+}
+
+/* Luxurious Gold Text Effects */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #FFFBEB 0%, #FCD34D 25%, #F59E0B 50%, #D97706 75%, #FEF08A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #F59E0B 0%,
+    #FFFBEB 25%,
+    #FCD34D 50%,
+    #FFFBEB 75%,
+    #F59E0B 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shineText 5s linear infinite;
+}
+
+@keyframes shineText {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Glowing Elements */
+.gold-glow {
+  filter: drop-shadow(0 0 25px rgba(245, 158, 11, 0.55));
+}
+
+.gold-glow-subtle {
+  filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.3));
+}
+
+.gold-card {
+  background: rgba(11, 18, 38, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 158, 11, 0.24);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8),
+              0 0 25px -5px rgba(245, 158, 11, 0.12),
+              inset 0 1px 0 rgba(254, 243, 199, 0.15);
+}
+
+.gold-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gold-card-hover:hover {
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 15px 35px -8px rgba(0, 0, 0, 0.85),
+              0 0 35px -2px rgba(245, 158, 11, 0.25),
+              inset 0 1px 0 rgba(254, 243, 199, 0.3);
+  transform: translateY(-2px);
+}
+
+.gold-button {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%);
+  box-shadow: 0 4px 20px -2px rgba(245, 158, 11, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gold-button:hover {
+  background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 50%, #D97706 100%);
+  box-shadow: 0 6px 28px 0 rgba(245, 158, 11, 0.6),
+              inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.gold-button:active {
+  transform: translateY(1px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f293d;
+  border-radius: 4px;
+  border: 1px solid rgba(245, 158, 11, 0.15);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}

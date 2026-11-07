@@ -1,0 +1,6 @@
+{
+  "name": "Advance Happy New Year 2027",
+  "description": "A premium, celebratory New Year 2027 website featuring live countdown, interactive fireworks, personalized greetings, and instant WhatsApp & social sharing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
