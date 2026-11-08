@@ -4,9 +4,15 @@ import { soundEffects } from '../utils/audio';
 
 interface HeaderProps {
   onCelebrate: () => void;
+  onOpenAbout: () => void;
+  onOpenDisclaimer: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onCelebrate }) => {
+export const Header: React.FC<HeaderProps> = ({
+  onCelebrate,
+  onOpenAbout,
+  onOpenDisclaimer,
+}) => {
   const [isMuted, setIsMuted] = useState(soundEffects.isMuted);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -16,9 +22,9 @@ export const Header: React.FC<HeaderProps> = ({ onCelebrate }) => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#030712]/80 border-b border-amber-400/15">
+    <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#030712]/85 border-b border-amber-400/15">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-8">
-        {/* Zone 1: Brand Zone (Single text element wordmark in display face) */}
+        {/* Zone 1: Brand Zone */}
         <a
           href="#"
           className="font-cinzel text-lg sm:text-xl font-bold tracking-tight gold-gradient-text whitespace-nowrap shrink-0 flex items-center gap-2"
@@ -27,7 +33,7 @@ export const Header: React.FC<HeaderProps> = ({ onCelebrate }) => {
           <span>New Year 2027</span>
         </a>
 
-        {/* Zone 2: 4-5 concise single-line text navigation links */}
+        {/* Zone 2: Navigation Links */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
           <a
             href="#countdown"
@@ -48,14 +54,20 @@ export const Header: React.FC<HeaderProps> = ({ onCelebrate }) => {
             Advance Greetings
           </a>
           <a
-            href="#deployment-guide"
+            href="#disclaimer"
             className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0"
           >
-            GitHub Setup
+            Disclaimer
           </a>
+          <button
+            onClick={onOpenAbout}
+            className="hover:text-amber-300 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+          >
+            About Us
+          </button>
         </nav>
 
-        {/* Zone 3: 1 primary action + audio control */}
+        {/* Zone 3: Audio control + Primary CTA */}
         <div className="flex items-center gap-3 shrink-0">
           {/* Audio Synthesizer Toggle */}
           <button
@@ -112,12 +124,21 @@ export const Header: React.FC<HeaderProps> = ({ onCelebrate }) => {
             Advance Greetings
           </a>
           <a
-            href="#deployment-guide"
+            href="#disclaimer"
             onClick={() => setMobileMenuOpen(false)}
             className="block text-sm font-medium text-slate-200 hover:text-amber-300 py-1"
           >
-            GitHub Setup
+            Disclaimer & Legal Terms
           </a>
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              onOpenAbout();
+            }}
+            className="w-full text-left block text-sm font-medium text-slate-200 hover:text-amber-300 py-1 cursor-pointer"
+          >
+            About Us
+          </button>
           <div className="pt-2">
             <a
               href="#create-wish"

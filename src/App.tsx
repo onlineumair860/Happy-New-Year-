@@ -7,7 +7,14 @@ import { CountdownTimer } from './components/CountdownTimer';
 import { WishCreator } from './components/WishCreator';
 import { PersonalizedGreetingCard } from './components/PersonalizedGreetingCard';
 import { AdvanceWishesSection } from './components/AdvanceWishesSection';
-import { GitHubDeploymentGuide } from './components/GitHubDeploymentGuide';
+import { Disclaimer } from './components/Disclaimer';
+import { AboutModal } from './components/AboutModal';
+import { DisclaimerModal } from './components/DisclaimerModal';
+import {
+  LeaderboardAd,
+  MobileBannerAd,
+  MediumRectangleAd,
+} from './components/AdBanner';
 import { Footer } from './components/Footer';
 import { Toast } from './components/Toast';
 import { WISH_TEMPLATES } from './data/wishTemplates';
@@ -20,6 +27,10 @@ export default function App() {
   const [customWishText, setCustomWishText] = useState<string>('');
   const [hasActiveGreeting, setHasActiveGreeting] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Legal & Branding Modals
+  const [aboutOpen, setAboutOpen] = useState<boolean>(false);
+  const [disclaimerOpen, setDisclaimerOpen] = useState<boolean>(false);
 
   // Initialize from URL query parameter ?name=... on first render
   useEffect(() => {
@@ -85,8 +96,24 @@ export default function App() {
 
       {/* Main App Content */}
       <div className="relative z-10 flex-1 flex flex-col">
-        {/* Header */}
-        <Header onCelebrate={() => soundEffects.playCelebrationChime()} />
+        {/* Header with Navigation and Modal Triggers */}
+        <Header
+          onCelebrate={() => soundEffects.playCelebrationChime()}
+          onOpenAbout={() => setAboutOpen(true)}
+          onOpenDisclaimer={() => setDisclaimerOpen(true)}
+        />
+
+        {/* ======================================================== */}
+        {/* 1. FRONT / HEADER ADS ("Frant Haider py lgay")          */}
+        {/* ======================================================== */}
+        {/* Desktop Header Ad (728 × 90 Leaderboard) */}
+        <div className="hidden md:flex justify-center pt-3 pb-1">
+          <LeaderboardAd />
+        </div>
+        {/* Mobile Header Ad (320 × 50 Large Mobile Banner) */}
+        <div className="flex md:hidden justify-center pt-2 pb-1">
+          <MobileBannerAd />
+        </div>
 
         {/* Hero Section */}
         <HeroSection
@@ -102,32 +129,66 @@ export default function App() {
 
         {/* Personalized Wish Greeting Card (Shown if active or from URL) */}
         {hasActiveGreeting && recipientName && (
-          <PersonalizedGreetingCard
-            name={recipientName}
-            wishText={customWishText || activeTemplate.message}
-            wishTextUrdu={activeTemplate.messageUrdu}
-            onReset={handleReset}
-            onToast={(msg) => setToastMessage(msg)}
-          />
+          <>
+            <PersonalizedGreetingCard
+              name={recipientName}
+              wishText={customWishText || activeTemplate.message}
+              wishTextUrdu={activeTemplate.messageUrdu}
+              onReset={handleReset}
+              onToast={(msg) => setToastMessage(msg)}
+            />
+
+            {/* Middle Ad: 300 × 250 Medium Rectangle below Greeting Card */}
+            <div className="flex justify-center py-3">
+              <MediumRectangleAd />
+            </div>
+          </>
         )}
 
+        {/* ======================================================== */}
+        {/* 2. MIDDLE ADS ("Drmyan")                                 */}
+        {/* ======================================================== */}
         {/* Interactive Wish Creator */}
         <WishCreator
           onWishCreated={handleWishCreated}
           initialName={recipientName}
         />
 
+        {/* Mobile Large Banner (320 × 50) directly below Wish Creator */}
+        <div className="flex justify-center py-4 px-2">
+          <MobileBannerAd />
+        </div>
+
         {/* Advance New Year Wishes Showcase Section */}
         <div id="advance-wishes" className="scroll-mt-20">
           <AdvanceWishesSection onSelectTemplate={handleSelectTemplate} />
         </div>
 
-        {/* GitHub Pages Setup & Deployment Guide */}
-        <GitHubDeploymentGuide onToast={(msg) => setToastMessage(msg)} />
+        {/* Dedicated Disclaimer & Legal Terms Component */}
+        <Disclaimer onOpenPrivacyModal={() => setDisclaimerOpen(true)} />
 
-        {/* Footer */}
-        <Footer />
+        {/* ======================================================== */}
+        {/* 3. END / BOTTOM ADS ("and py bhi lgana user ko ads show") */}
+        {/* ======================================================== */}
+        {/* Desktop End Ad (728 × 90 Leaderboard) */}
+        <div className="hidden md:flex justify-center py-5">
+          <LeaderboardAd />
+        </div>
+        {/* Mobile / Tablet End Ad (300 × 250 Medium Rectangle) */}
+        <div className="flex md:hidden justify-center py-4">
+          <MediumRectangleAd />
+        </div>
+
+        {/* Footer with Compliance and Brand Links */}
+        <Footer
+          onOpenAbout={() => setAboutOpen(true)}
+          onOpenDisclaimer={() => setDisclaimerOpen(true)}
+        />
       </div>
+
+      {/* Modal Components for Legal Compliance and Professional Branding */}
+      <AboutModal isOpen={aboutOpen} onClose={() => setAboutOpen(false)} />
+      <DisclaimerModal isOpen={disclaimerOpen} onClose={() => setDisclaimerOpen(false)} />
 
       {/* Floating Toast Notification */}
       <Toast message={toastMessage} onClose={() => setToastMessage(null)} />
